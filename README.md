@@ -1,6 +1,8 @@
 # Golang Starter Kit
 
-A starter kit written in Golang + Ports and Adapters structure 
+A starter kit written in Golang + Ports and Adapters structure on top of https://github.com/golang-standards/project-layout
+
+This repository uses ports and adapters with a variation of https://github.com/golang-standards/project-layout layout
 
 ## Getting Started
   1. git clone `git@github.com/yuraxdrumz/golang-starter-kit`
@@ -9,16 +11,14 @@ A starter kit written in Golang + Ports and Adapters structure
   4. run `./scripts/hooks.sh` to add `pre-commit` hook with linter and import checker
   5. run `go mod init` to initialize your module
   
-See deployment for notes on how to deploy the project on a live system.
-
 ### Prerequisites
 
-Ports and Adapters divides your code to 3 layers:
+Ports and Adapters divides your code to 3 parts:
   - Business-logic - These are your business rules + types, implemented without any dependency on 3rd party modules (self-contained)
   - Ports - Interfaces to speak with your business rules
   - Adapters - Implementations of the ports, There are two kinds of adapters:
-    - In - your external API to the world. For example - `internal/pkg/adapters/in/http.go`
-    - Out - what your business logic uses. For example - `internal/pkg/adapters/out/reverser/in-memory.go`
+    - In(Driver) - your external API to the world. For example - `internal/pkg/adapters/in/http.go`
+    - Out(Driven) - what your business logic uses. For example - `internal/pkg/adapters/out/reverser/in-memory.go`
 
 Usually, you divide `ports` and `adapters` to separate directories, but the best practice in golang is to keep structs near implementations. That is why, I decided to add `ports.go` near each adapter.
 
@@ -52,7 +52,7 @@ type Specification struct {
 
 ### Logging
 
-The service uses `logrus` logger to write to stdout and has and option to write to `logz.io`. In order to send logs to `logz.io` you will need an environment variable called `LOGZIO_TOKEN` which is your `logz.io` token
+The repo uses `logrus` logger to write to stdout and has and option to write to `logz.io`. In order to send logs to `logz.io` you will need an environment variable called `LOGZIO_TOKEN` which is your `logz.io` token
 
 To change log level change the `LOG_LEVEL` environment variable
 
@@ -64,10 +64,10 @@ Possible log levels:
   * fatal
 
 ### Building the service
-The service compiles to all 3 major os's - `windows`, `linux`, `darwin(macOS)`
+The repo compiles to all 3 major os's - `windows`, `linux`, `darwin(macOS)`
 
 To compile the project, run `./scripts/build.sh`.
-This will create a build directory with the binaries both zipped and unzipped all os's
+This will create a build directory with the binaries both zipped and unzipped for all os's
 
 ### Running the service + watch mode
 ```golang
@@ -75,17 +75,5 @@ go get -u github.com/cespare/reflex
 reflex -d none -s -R vendor. -r \.go$ -- go run main.go
 ```
 
-### Unit Tests
-TBD
-
 ### Pre-Commit
 Will run on every pre commit and check if all `.go` files are valid
-
-### End to End tests
-TBD
-
-### Integration Tests
-TBD
-
-### Deployment
-TBD
