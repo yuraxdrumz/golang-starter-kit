@@ -10,6 +10,8 @@ This repository uses ports and adapters with a variation of https://github.com/g
   3. chmod +x `./hooks/pre-commit.sh`
   4. run `./scripts/hooks.sh` to add `pre-commit` hook with linter and import checker
   5. run `go mod init` to initialize your module
+  6. run `go get -u golang.org/x/lint/golint`
+  7. run `go get -u golang.org/x/tools/cmd/goimports`
   
 ### Prerequisites
 
