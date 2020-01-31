@@ -2,8 +2,6 @@
 
 A starter kit written in Golang + Ports and Adapters structure on top of https://github.com/golang-standards/project-layout
 
-This repository uses ports and adapters with a variation of https://github.com/golang-standards/project-layout layout
-
 ## Getting Started
   1. git clone `git@github.com/yuraxdrumz/golang-starter-kit`
   2. chmod +x `./scripts/hooks.sh`
