@@ -75,11 +75,13 @@ func main() {
 	fu = fileutils.NewFileUtilsAdapter()
 	// init sleeper
 	sl = sleeper.NewSleepAdapter()
-	// init example use case with provided adapter functions
+	// init example use case with provided adapters
 	ex = example.NewExample(fu, sl)
 	log.Debug("init in adapters")
-	// define the in adapter with explicit InPort
+	// http adapter
 	ia = inadapter.NewHTTPAdapter(ex, "3000")
+	// cli adapter
+	ia = inadapter.NewCliAdapter(ex)
 	// run
 	log.Debug("run in adapters")
 	ia.Run()
