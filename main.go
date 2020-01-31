@@ -81,7 +81,7 @@ func main() {
 	// http adapter
 	ia = inadapter.NewHTTPAdapter(ex, "3000")
 	// cli adapter
-	ia = inadapter.NewCliAdapter(ex)
+	//ia = inadapter.NewCliAdapter(ex)
 	// run
 	log.Debug("run in adapters")
 	ia.Run()
