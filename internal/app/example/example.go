@@ -1,8 +1,8 @@
 package example
 
 import (
-	"time"
 	log "github.com/sirupsen/logrus"
+	"time"
 )
 
 // NewExample - create a new instance of Example with passed implementations
