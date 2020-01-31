@@ -4,6 +4,9 @@ import (
 	"os"
 )
 
+// OsExist - struct with necessary use-cases for adapter to run
+type OsExist struct{}
+
 // NewFileUtilsAdapter - create a new instance of FileUtilsAdapter with passed implementations
 func NewFileUtilsAdapter() *OsExist {
 	return &OsExist{}

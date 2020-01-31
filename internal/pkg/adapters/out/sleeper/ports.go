@@ -1,4 +1,8 @@
 package sleeper
 
-// LocalTime - struct with neccessary use-cases for adapter to run
-type LocalTime struct{}
+import "time"
+
+// Port - sleep operations
+type Port interface {
+	Sleep(sec time.Duration)
+}

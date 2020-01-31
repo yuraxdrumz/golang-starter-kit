@@ -1,4 +1,6 @@
 package fileutils
 
-// OsExist - struct with neccessary use-cases for adapter to run
-type OsExist struct{}
+// Port - file operations
+type Port interface {
+	FileExists(filename string) bool
+}

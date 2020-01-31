@@ -1,5 +1,8 @@
 package reverser
 
+// InMemory - struct with necessary use-cases for adapter to run
+type InMemory struct{}
+
 // NewReverserAdapter - create a new instance of FileUtilsAdapter with passed implementations
 func NewReverserAdapter() *InMemory {
 	return &InMemory{}

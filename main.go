@@ -1,14 +1,15 @@
 package main
 
 import (
+	"os"
+
 	"github.com/bshuster-repo/logruzio"
 	"github.com/kelseyhightower/envconfig"
 	log "github.com/sirupsen/logrus"
 	"github.com/yuraxdrumz/golang-starter-kit/internal/app/example"
-	httpadapter "github.com/yuraxdrumz/golang-starter-kit/internal/pkg/adapters/in"
-	fileutils "github.com/yuraxdrumz/golang-starter-kit/internal/pkg/adapters/out/fileutils"
-	sleeper "github.com/yuraxdrumz/golang-starter-kit/internal/pkg/adapters/out/sleeper"
-	"os"
+	inadapter "github.com/yuraxdrumz/golang-starter-kit/internal/pkg/adapters/in"
+	"github.com/yuraxdrumz/golang-starter-kit/internal/pkg/adapters/out/fileutils"
+	"github.com/yuraxdrumz/golang-starter-kit/internal/pkg/adapters/out/sleeper"
 )
 
 // Specification - env variables struct
@@ -61,36 +62,25 @@ func init() {
 	}
 }
 
-// // with http adapter
-// func main() {
-// 	log.Debug("init use cases")
-// 	// init fileutils
-// 	fu := fileutils.NewFileUtilsAdapter()
-// 	// init sleeper
-// 	sl := sleeper.NewSleepAdapter()
-// 	// init scanner use case with provided adapter functions
-// 	ex := example.NewExample(fu.FileExists, sl.Sleep)
-// 	log.Debug("init in adapters")
-// 	// init in adapter with all use cases
-// 	inadapter := httpadapter.NewHTTPAdapter(ex)
-// 	// run
-// 	log.Debug("run in adapters")
-// 	inadapter.Run(s.Port)
-// }
-
-// with cli adapter
+// with http adapter
 func main() {
+	// declare all ports
+	var fu fileutils.FileUtilsPort
+	var sl sleeper.SleepPort
+	var ex example.SomethingPort
+	var ia inadapter.InPort
+
 	log.Debug("init use cases")
 	// init fileutils
-	fu := fileutils.NewFileUtilsAdapter()
+	fu = fileutils.NewFileUtilsAdapter()
 	// init sleeper
-	sl := sleeper.NewSleepAdapter()
+	sl = sleeper.NewSleepAdapter()
 	// init example use case with provided adapter functions
-	ex := example.NewExample(fu.FileExists, sl.Sleep)
+	ex = example.NewExample(fu, sl)
 	log.Debug("init in adapters")
-	// init in adapter with all use cases
-	inadapter := httpadapter.NewCliAdapter(ex)
+	// define the in adapter with explicit InPort
+	ia = inadapter.NewHTTPAdapter(ex, "3000")
 	// run
 	log.Debug("run in adapters")
-	inadapter.Run()
+	ia.Run()
 }

@@ -1,4 +1,6 @@
 package reverser
 
-// InMemory - struct with neccessary use-cases for adapter to run
-type InMemory struct{}
+// Port - reverses array
+type Port interface {
+	Reverse(byteArray []byte)
+}
