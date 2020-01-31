@@ -65,10 +65,10 @@ func init() {
 // with http adapter
 func main() {
 	// declare all ports
-	var fu fileutils.FileUtilsPort
-	var sl sleeper.SleepPort
-	var ex example.SomethingPort
-	var ia inadapter.InPort
+	var fu fileutils.Port
+	var sl sleeper.Port
+	var ex example.Port
+	var ia inadapter.Port
 
 	log.Debug("init use cases")
 	// init fileutils
