@@ -8,6 +8,7 @@ fi
 
 GOLINT=$GOPATH/bin/golint
 GOIMPORTS=$GOPATH/bin/goimports
+GOSEC=$GOPATH/bin/gosec
 
 # Check for golint
 if [[ ! -x "$GOLINT" ]]; then
@@ -18,6 +19,12 @@ fi
 # Check for goimports
 if [[ ! -x "$GOIMPORTS" ]]; then
   printf "\t\033[41mPlease install goimports\033[0m (go get golang.org/x/tools/cmd/goimports)"
+  exit 1
+fi
+
+# Check for gosec
+if [[ ! -x "$GOSEC" ]]; then
+  printf "\t\033[41mPlease install gosec\033[0m (go get -u github.com/securego/gosec/v2/cmd/gosec)"
   exit 1
 fi
 
@@ -38,14 +45,23 @@ do
   fi
 
   # Run govet on the staged file and check the exit status
-  # go vet $FILE
-  # if [[ $? != 0 ]]; then
-  #   printf "\t\033[31mgo vet $FILE\033[0m \033[0;30m\033[41mFAILURE!\033[0m\n"
-  #   PASS=false
-  # else
-  #   printf "\t\033[32mgo vet $FILE\033[0m \033[0;30m\033[42mpass\033[0m\n"
-  # fi
+  go vet $FILE
+  if [[ $? != 0 ]]; then
+    printf "\t\033[31mgo vet $FILE\033[0m \033[0;30m\033[41mFAILURE!\033[0m\n"
+    PASS=false
+  else
+    printf "\t\033[32mgo vet $FILE\033[0m \033[0;30m\033[42mpass\033[0m\n"
+  fi
 done
+
+# Run gosec and check the exit status
+gosec -tests ./...
+if [[ $? != 0 ]]; then
+  printf "\t\033[31mgosec $FILE\033[0m \033[0;30m\033[41mFAILURE!\033[0m\n"
+  PASS=false
+else
+  printf "\t\033[32mgosec $FILE\033[0m \033[0;30m\033[42mpass\033[0m\n"
+fi
 
 if ! $PASS; then
   printf "\033[0;30m\033[41mCOMMIT FAILED\033[0m\n"
