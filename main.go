@@ -3,38 +3,24 @@ package main
 import (
 	"os"
 
+	"golang-starter-kit/internal/app/example"
+	inadapter "golang-starter-kit/internal/pkg/adapters/in"
+	"golang-starter-kit/internal/pkg/adapters/out/env"
+	"golang-starter-kit/internal/pkg/adapters/out/fileutils"
+	"golang-starter-kit/internal/pkg/adapters/out/sleeper"
+
 	"github.com/bshuster-repo/logruzio"
-	"github.com/kelseyhightower/envconfig"
 	log "github.com/sirupsen/logrus"
-	"github.com/yuraxdrumz/golang-starter-kit/internal/app/example"
-	inadapter "github.com/yuraxdrumz/golang-starter-kit/internal/pkg/adapters/in"
-	"github.com/yuraxdrumz/golang-starter-kit/internal/pkg/adapters/out/fileutils"
-	"github.com/yuraxdrumz/golang-starter-kit/internal/pkg/adapters/out/sleeper"
 )
 
-// Specification - env variables struct
-type Specification struct {
-	LogzioToken string `envconfig:"LOGZIO_TOKEN"`
-	AppName     string `envconfig:"APP_NAME" default:"example-app"`
-	LogLevel    string `envconfig:"LOG_LEVEL" default:"info"`
-	Port        string `envConfig:"PORT" default:"8080"`
-}
-
-var s Specification
-
 func init() {
-
-	err := envconfig.Process("", &s)
-	if err != nil {
-		log.Fatal(err)
-		panic(err)
-	}
+	s := env.New()
 	// Log as JSON instead of the default ASCII formatter.
 	log.SetFormatter(&log.JSONFormatter{})
 	// Output to stdout instead of the default stderr
 	// Can be any io.Writer, see below for File example
 	log.SetOutput(os.Stdout)
-	// Only log the warning severity or above.
+
 	switch s.LogLevel {
 	case "info":
 		log.SetLevel(log.InfoLevel)

@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/yuraxdrumz/golang-starter-kit/internal/app/example"
+	"golang-starter-kit/internal/app/example"
 
 	log "github.com/sirupsen/logrus"
 )

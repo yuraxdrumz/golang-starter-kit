@@ -3,8 +3,8 @@ package example
 import (
 	"time"
 
-	"github.com/yuraxdrumz/golang-starter-kit/internal/pkg/adapters/out/fileutils"
-	"github.com/yuraxdrumz/golang-starter-kit/internal/pkg/adapters/out/sleeper"
+	"golang-starter-kit/internal/pkg/adapters/out/fileutils"
+	"golang-starter-kit/internal/pkg/adapters/out/sleeper"
 
 	log "github.com/sirupsen/logrus"
 )

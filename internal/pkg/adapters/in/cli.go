@@ -1,6 +1,6 @@
 package inadapter
 
-import "github.com/yuraxdrumz/golang-starter-kit/internal/app/example"
+import "golang-starter-kit/internal/app/example"
 
 // CliAdapter - struct with necessary use-cases for adapter to run
 type CliAdapter struct {
