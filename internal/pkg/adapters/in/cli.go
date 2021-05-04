@@ -1,6 +1,9 @@
 package inadapter
 
-import "golang-starter-kit/internal/app/example"
+import (
+	"golang-starter-kit/internal/app/example"
+	"log"
+)
 
 // CliAdapter - struct with necessary use-cases for adapter to run
 type CliAdapter struct {
@@ -14,5 +17,8 @@ func NewCliAdapter(example example.Port) *CliAdapter {
 
 // Run - initializes cli adapter run
 func (in *CliAdapter) Run() {
-	in.example.Run()
+	err := in.example.Run()
+	if err != nil {
+		log.Fatal(err)
+	}
 }

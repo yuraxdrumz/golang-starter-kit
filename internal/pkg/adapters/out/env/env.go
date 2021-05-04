@@ -21,7 +21,7 @@ func (s *Specification) GetEnv() *Specification {
 	return &spec
 }
 
-
+// New reads env vars to a struct
 func New() *Specification {
 	err := envconfig.Process("", &spec)
 	if err != nil {

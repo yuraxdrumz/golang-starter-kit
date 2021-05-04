@@ -25,11 +25,19 @@ func (in *HTTPAdapter) Run() {
 	sayHello := func(w http.ResponseWriter, r *http.Request) {
 		message := r.URL.Path
 		// call example use case passed to in adapter
-		in.example.Run()
+		err := in.example.Run()
+		if err != nil {
+			log.Fatal(err)
+			return
+		}
 		message = strings.TrimPrefix(message, "/")
 		message = "Hello " + message
 
-		w.Write([]byte(message))
+		_, err = w.Write([]byte(message))
+		if err != nil {
+			log.Fatal(err)
+			return
+		}
 	}
 	http.HandleFunc("/", sayHello)
 	log.Info("Starting server on port " + in.port)
