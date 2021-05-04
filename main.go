@@ -10,6 +10,7 @@ import (
 	"golang-starter-kit/internal/pkg/adapters/out/sleeper"
 
 	"github.com/bshuster-repo/logruzio"
+	_ "github.com/securego/gosec/v2"
 	log "github.com/sirupsen/logrus"
 )
 
