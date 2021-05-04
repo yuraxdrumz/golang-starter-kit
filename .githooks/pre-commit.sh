@@ -38,13 +38,13 @@ do
   fi
 
   # Run govet on the staged file and check the exit status
-  # go vet $FILE
-  # if [[ $? != 0 ]]; then
-  #   printf "\t\033[31mgo vet $FILE\033[0m \033[0;30m\033[41mFAILURE!\033[0m\n"
-  #   PASS=false
-  # else
-  #   printf "\t\033[32mgo vet $FILE\033[0m \033[0;30m\033[42mpass\033[0m\n"
-  # fi
+  go vet $FILE
+  if [[ $? != 0 ]]; then
+    printf "\t\033[31mgo vet $FILE\033[0m \033[0;30m\033[41mFAILURE!\033[0m\n"
+    PASS=false
+  else
+    printf "\t\033[32mgo vet $FILE\033[0m \033[0;30m\033[42mpass\033[0m\n"
+  fi
 done
 
 if ! $PASS; then

@@ -16,6 +16,7 @@ type Specification struct {
 	Port        string `envConfig:"PORT" default:"8080"`
 }
 
+// GetEnv returns local spec
 func (s *Specification) GetEnv() *Specification {
 	return &spec
 }
