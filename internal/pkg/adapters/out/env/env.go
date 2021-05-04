@@ -21,6 +21,7 @@ func (s *Specification) GetEnv() *Specification {
 	return &spec
 }
 
+
 func New() *Specification {
 	err := envconfig.Process("", &spec)
 	if err != nil {
