@@ -55,7 +55,7 @@ do
 done
 
 # Run gosec and check the exit status
-gosec -tests ./...
+gosec -tests -quiet ./...
 if [[ $? != 0 ]]; then
   printf "\t\033[31mgosec $FILE\033[0m \033[0;30m\033[41mFAILURE!\033[0m\n"
   PASS=false
