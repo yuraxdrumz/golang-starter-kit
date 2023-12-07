@@ -4,10 +4,14 @@ A starter kit written in Golang + Ports and Adapters structure on top of <https:
 
 ## Getting Started
 
-  1. git clone `git@github.com/yuraxdrumz/golang-starter-kit`
-  2. make -> will setup pre-commit hooks and go mod tidy
-  3. make run -> will run the server
-  
+  1. `git clone git@github.com/yuraxdrumz/golang-starter-kit`
+  2. `go install golang.org/x/tools/cmd/goimports@latest`
+  3. `go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.55.2`
+  4. Run `brew install pre-commit` / `pip install pre-commit`
+  5. Run `pre-commit`
+
+If you want to check pre-commit hook on current folder run `pre-commit run --all-files`
+
 ### Prerequisites
 
 Ports and Adapters divides your code to 3 parts:
@@ -36,7 +40,7 @@ go get -u <repository-name>
 ### Running the service
 
 ```bash
-make run
+go run main.go
 ```
 
 ### Environment Variables
@@ -48,17 +52,17 @@ The default is:
 ```golang
 
 type Specification struct {
-  LogzioToken string `envconfig:"LOGZIO_TOKEN"`
-  AppName     string `envconfig:"APP_NAME" default:"example-app"`
   LogLevel    string `envconfig:"LOG_LEVEL" default:"info"`
   Port        string `envConfig:"PORT" default:"8080"`
 }
 
 ```
 
+By default this service looks for .env in root folder.
+
 ### Logging
 
-The repo uses `logrus` logger to write to stdout and has and option to write to `logz.io`. In order to send logs to `logz.io` you will need an environment variable called `LOGZIO_TOKEN` which is your `logz.io` token
+The repo uses `logrus` logger to write to stdout.
 
 To change log level change the `LOG_LEVEL` environment variable
 
@@ -69,11 +73,3 @@ Possible log levels:
 - error
 - warn
 - fatal
-
-### Pre-Commit
-
-Will run on every pre commit and check the following:
-
-1. go lint
-2. go vet
-3. gosec
