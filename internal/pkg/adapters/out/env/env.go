@@ -3,31 +3,30 @@ package env
 import (
 	"log"
 
+	"github.com/joho/godotenv"
 	"github.com/kelseyhightower/envconfig"
+	"github.com/sirupsen/logrus"
 )
 
-var spec Specification
+var Spec Specification
 
 // Specification - env variables struct
 type Specification struct {
-	LogzioToken string `envconfig:"LOGZIO_TOKEN"`
-	AppName     string `envconfig:"APP_NAME" default:"example-app"`
-	LogLevel    string `envconfig:"LOG_LEVEL" default:"info"`
-	Port        string `envConfig:"PORT" default:"8080"`
-}
-
-// GetEnv returns local spec
-func (s *Specification) GetEnv() *Specification {
-	return &spec
+	LogLevel string `envconfig:"LOG_LEVEL" default:"info"`
+	Port     string `envConfig:"PORT" default:"8080"`
 }
 
 // New reads env vars to a struct
 func New() *Specification {
-	err := envconfig.Process("", &spec)
+	err := godotenv.Load(".env")
 	if err != nil {
-		log.Fatal(err)
-		panic(err)
+		logrus.Warn("Error loading .env file, will use env vars")
 	}
 
-	return &spec
+	err = envconfig.Process("", &Spec)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return &Spec
 }

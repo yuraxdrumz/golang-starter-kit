@@ -9,8 +9,6 @@ import (
 	"golang-starter-kit/internal/pkg/adapters/out/fileutils"
 	"golang-starter-kit/internal/pkg/adapters/out/sleeper"
 
-	"github.com/bshuster-repo/logruzio"
-	_ "github.com/securego/gosec/v2"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -34,19 +32,6 @@ func init() {
 	case "fatal":
 		log.SetLevel(log.FatalLevel)
 	}
-
-	contextLogger := log.Fields{
-		"app_name": s.AppName,
-	}
-
-	if s.LogzioToken != "" {
-		log.Info("Adding logz.io token")
-		hook, err := logruzio.New(s.LogzioToken, s.AppName, contextLogger)
-		if err != nil {
-			log.Fatal(err)
-		}
-		log.AddHook(hook)
-	}
 }
 
 // with http adapter
@@ -66,7 +51,7 @@ func main() {
 	ex = example.NewExample(fu, sl)
 	log.Debug("init in adapters")
 	// http adapter
-	ia = inadapter.NewHTTPAdapter(ex, "3000")
+	ia = inadapter.NewHTTPAdapter(ex, env.Spec.Port)
 	// cli adapter
 	//ia = inadapter.NewCliAdapter(ex)
 	// run
