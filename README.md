@@ -5,10 +5,9 @@ A starter kit written in Golang + Ports and Adapters structure on top of <https:
 ## Getting Started
 
   1. `git clone git@github.com/yuraxdrumz/golang-starter-kit`
-  2. `go install golang.org/x/tools/cmd/goimports@latest`
-  3. `go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.55.2`
-  4. Run `brew install pre-commit` / `pip install pre-commit`
-  5. Run `pre-commit`
+  2. `go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.55.2`
+  3. Run `brew install pre-commit` / `pip install pre-commit`
+  4. Run `pre-commit install`
 
 If you want to check pre-commit hook on current folder run `pre-commit run --all-files`
 
@@ -73,3 +72,8 @@ Possible log levels:
 - error
 - warn
 - fatal
+
+
+### Pre Commit
+
+You can add any pre commit hooks to `.pre-commit-config.yaml` if needed
